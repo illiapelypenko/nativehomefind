@@ -1,0 +1,6 @@
+module Pods_nativehomefind_nativehomefindTests {
+  umbrella header "Pods-nativehomefind-nativehomefindTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
