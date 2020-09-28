@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-node_modules/
-/.pnp
-.pnp.js
-.vscode/
-.DS_Store
-
-=======
 # OSX
 #
 .DS_Store
@@ -48,4 +40,6 @@ yarn-error.log
 
 # CocoaPods
 /ios/Pods/
->>>>>>> origin/develop
+
+#Vscode
+.vscode
