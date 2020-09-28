@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   StyleSheet,
-  ImageBackground,
+  SafeAreaView,
   Text,
   View,
   StatusBar,
   TextInput,
-  TouchableHightlight,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import Location from '../assets/location.svg';
-import SearchLoop from '../assets/searchLoop.svg';
-import Star from '../assets/star.svg';
-import colors from '../constats/colors';
+  Pressable,
+} from "react-native";
+import Location from "../assets/location.svg";
+import SearchLoop from "../assets/searchLoop.svg";
+import Star from "../assets/star.svg";
+import colors from "../constats/colors";
 
 export const Search = () => {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   return (
-    <View style={styles.page}>
+    <SafeAreaView style={styles.page}>
       <StatusBar backgroundColor={colors.FLAMINGO} />
       <View style={styles.topPanel}>
         <Text style={styles.topPanelText}>Search</Text>
@@ -34,38 +33,38 @@ export const Search = () => {
             style={styles.textInput}
             onChangeText={setSearchValue}
             value={searchValue}
-            placeholder="Place-name or postcode"
+            placeholder='Place-name or postcode'
             placeholderTextColor={colors.MIRAGE}
           />
           <Location style={styles.location} />
         </View>
-        <TouchableWithoutFeedback style={styles.button}>
+        <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Search</Text>
-        </TouchableWithoutFeedback>
+        </Pressable>
       </View>
       <View style={styles.navigation}>
-        <TouchableWithoutFeedback style={styles.navigationButton}>
+        <Pressable style={styles.navigationButton}>
           <SearchLoop />
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback style={styles.navigationButton}>
+        </Pressable>
+        <Pressable style={styles.navigationButton}>
           <Star />
-        </TouchableWithoutFeedback>
+        </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
-    position: 'relative',
-    height: '100%',
+    position: "relative",
+    height: "100%",
+    backgroundColor: colors.FLAMINGO,
   },
   topPanel: {
-    backgroundColor: colors.FLAMINGO,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 18,
-    // shadow not working
-    shadowColor: '#000',
+    // shadow not working on android, only top shadow on ios
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -73,66 +72,70 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 12,
     elevation: 5,
+    backgroundColor: colors.FLAMINGO,
   },
   topPanelText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 24,
     lineHeight: 24,
-    color: 'white',
+    color: "white",
   },
   main: {
+    flex: 1,
     paddingHorizontal: 15,
     paddingTop: 38,
+    backgroundColor: "#F9FAFB",
   },
   tip: {
     fontSize: 18,
     lineHeight: 27,
   },
   textInputWrapper: {
-    position: 'relative',
+    position: "relative",
     marginTop: 27,
     marginBottom: 11,
   },
   location: {
-    position: 'absolute',
+    position: "absolute",
     left: 18,
     top: 27,
   },
   textInput: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderWidth: 1,
     borderColor: colors.ZIRCON,
     borderRadius: 3,
     paddingHorizontal: 40,
     paddingVertical: 19,
     // font-weight 500 not working
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   button: {
-    alignItems: 'center',
-    width: 345,
+    alignItems: "center",
     height: 56,
     borderRadius: 3,
     backgroundColor: colors.FLAMINGO,
     paddingVertical: 15,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
     fontSize: 18,
     lineHeight: 21,
   },
   navigation: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    position: 'absolute',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    position: "absolute",
     bottom: 0,
     left: 0,
-    width: '100%',
+    paddingBottom: 20,
+    backgroundColor: "white",
   },
   navigationButton: {
-    width: 100,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 15,
-    backgroundColor: 'red',
   },
 });
