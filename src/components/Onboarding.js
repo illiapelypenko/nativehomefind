@@ -6,7 +6,7 @@ import {
   View,
   StatusBar,
   useWindowDimensions,
-  TouchableOpacity,
+  TouchableHightlight,
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import LogoArrow from '../assets/arrowRight.svg';
@@ -45,9 +45,9 @@ const Onboarding = () => {
       </View>
       <Text style={styles.secondaryText}>{item.text}</Text>
       {index === carouselItems.length - 1 && (
-        <TouchableOpacity style={styles.button}>
+        <TouchableHightlight style={styles.button}>
           <Text style={styles.buttonText}>Start</Text>
-        </TouchableOpacity>
+        </TouchableHightlight>
       )}
     </View>
   );
