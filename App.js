@@ -1,10 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import Onboarding from './src/components/Onboarding';
 
 const App = () => {
-  return <h1>Hello</h1>;
+  return <Onboarding />;
 };
-
-const styles = StyleSheet.create({});
 
 export default App;
