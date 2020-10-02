@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   ImageBackground,
@@ -9,65 +9,59 @@ import {
   Pressable,
   Animated,
   Easing,
-} from "react-native";
-import Carousel, { Pagination } from "react-native-snap-carousel";
-import LogoArrow from "../assets/arrowRight.svg";
-import colors from "../constats/colors";
+} from 'react-native';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+import LogoArrow from '../assets/arrowRight.svg';
+import colors from '../constats/colors';
 
 export const Onboarding = ({ navigation }) => {
   const slides = [
     {
-      text: "Convenient mobile application for easy properties search",
-      bgSource: require("../assets/onboardingBgs/onb1.jpg"),
+      text: 'Convenient mobile application for easy properties search',
+      bgSource: require('../assets/onboardingBgs/onb1.jpg'),
     },
     {
-      text: "Buy and sell your property right here and right now!",
-      bgSource: require("../assets/onboardingBgs/onb2.jpg"),
+      text: 'Buy and sell your property right here and right now!',
+      bgSource: require('../assets/onboardingBgs/onb2.jpg'),
     },
     {
-      text: "Thanks to us, thousands of buyers and sellers have become happy",
-      bgSource: require("../assets/onboardingBgs/onb3.jpg"),
+      text: 'Thanks to us, thousands of buyers and sellers have become happy',
+      bgSource: require('../assets/onboardingBgs/onb3.jpg'),
     },
     {
-      text: "Register and find out what your dream home looks like!",
-      bgSource: require("../assets/onboardingBgs/onb4.jpg"),
+      text: 'Register and find out what your dream home looks like!',
+      bgSource: require('../assets/onboardingBgs/onb4.jpg'),
     },
   ];
 
-  const widthPlus = new Animated.Value(0);
-  const widthMinus = new Animated.Value(1);
+  const bigger = new Animated.Value(1);
+  const smaller = new Animated.Value(2.5);
 
   const viewportWidth = useWindowDimensions().width;
 
   const [activeSlide, setActiveSlide] = useState(0);
+  const [prevActiveSlide, setPrevActiveSlide] = useState(null);
 
-  const scaleXPlus = widthPlus.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 2.5],
-  });
-
-  const scaleXMinus = widthPlus.interpolate({
-    inputRange: [0, 1],
-    outputRange: [2.5, 1],
-  });
-
-  const handleOnSnapToItem = (slideIndex) => {
-    Animated.timing(widthPlus, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true,
-      easing: Easing.linear,
-    }).start();
-
-    Animated.timing(widthMinus, {
-      toValue: 0,
-      duration: 1000,
-      useNativeDriver: true,
-      easing: Easing.linear,
-    }).start();
-
+  const handleOnSnapToItem = slideIndex => {
+    setPrevActiveSlide(activeSlide);
     setActiveSlide(slideIndex);
   };
+
+  useEffect(() => {
+    Animated.timing(bigger, {
+      toValue: 2.5,
+      duration: 200,
+      useNativeDriver: true,
+      easing: Easing.linear,
+    }).start();
+
+    Animated.timing(smaller, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: true,
+      easing: Easing.linear,
+    }).start();
+  }, [activeSlide]);
 
   const slide = ({ item, index }) => (
     <View style={styles.slide}>
@@ -80,7 +74,7 @@ export const Onboarding = ({ navigation }) => {
       {index === slides.length - 1 && (
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate("Root")}
+          onPress={() => navigation.navigate('TabNavigator')}
         >
           <Text style={styles.buttonText}>Start</Text>
         </Pressable>
@@ -90,15 +84,20 @@ export const Onboarding = ({ navigation }) => {
 
   const ActiveDot = (
     <Animated.View
-      style={[styles.dot, { transform: [{ scaleX: scaleXPlus }] }]}
+      style={[styles.dot, { transform: [{ scaleX: bigger }] }]}
     ></Animated.View>
   );
 
-  const InactiveDot = (
-    <Animated.View
-      style={[styles.inactiveDot, { transform: [{ scaleX: scaleXMinus }] }]}
-    ></Animated.View>
-  );
+  function InactiveDot({ index }) {
+    return (
+      <Animated.View
+        style={[
+          styles.inactiveDot,
+          index === prevActiveSlide ? { transform: [{ scaleX: smaller }] } : {},
+        ]}
+      ></Animated.View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -109,17 +108,13 @@ export const Onboarding = ({ navigation }) => {
         sliderWidth={viewportWidth}
         itemWidth={viewportWidth}
         onSnapToItem={handleOnSnapToItem}
-        // onScroll={handleScroll}
       />
       <Pagination
         dotsLength={slides.length}
         activeDotIndex={activeSlide}
-        inactiveDotOpacity={1}
-        inactiveDotScale={1}
-        inactiveDotStyle={styles.inactiveDot}
         containerStyle={styles.pagination}
         dotElement={ActiveDot}
-        inactiveDotElement={InactiveDot}
+        inactiveDotElement={<InactiveDot />}
       />
     </View>
   );
@@ -127,26 +122,26 @@ export const Onboarding = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
+    position: 'relative',
   },
   slide: {
-    backgroundColor: "black",
-    height: "100%",
-    justifyContent: "center",
+    backgroundColor: 'black',
+    height: '100%',
+    justifyContent: 'center',
     zIndex: 3,
-    alignItems: "center",
+    alignItems: 'center',
   },
   background: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     top: 0,
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
     opacity: 0.7,
   },
   logo: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 13,
   },
   logoArrow: {
@@ -154,24 +149,24 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   logoText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 38,
     lineHeight: 45,
-    textAlign: "center",
-    color: "white",
+    textAlign: 'center',
+    color: 'white',
     zIndex: 2,
     padding: 12,
   },
   secondaryText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
     zIndex: 2,
-    width: "80%",
+    width: '80%',
     marginBottom: 42,
   },
   pagination: {
-    position: "absolute",
+    position: 'absolute',
     left: 0,
     bottom: 0,
     right: 0,
@@ -179,29 +174,29 @@ const styles = StyleSheet.create({
   dot: {
     width: 10,
     height: 10,
-    borderRadius: 5,
-    marginHorizontal: 5,
-    backgroundColor: "white",
+    borderRadius: 4,
+    marginHorizontal: 10,
+    backgroundColor: 'white',
   },
   inactiveDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    marginHorizontal: 5,
-    backgroundColor: "white",
+    marginHorizontal: 10,
+    backgroundColor: 'white',
   },
   button: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 345,
     height: 56,
     borderRadius: 3,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     paddingVertical: 15,
   },
   buttonText: {
     color: colors.FLAMINGO,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18,
     lineHeight: 21,
   },

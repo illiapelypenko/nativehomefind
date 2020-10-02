@@ -1,24 +1,24 @@
-import { http } from "../utils/request";
+import { http } from '../utils/request';
 
-export const GET_PROPERTIES = "GET_PROPERTIES";
-export const CLEAR_PROPERTIES = "CLEAR_PROPERTIES";
-export const SET_CARD_SIZE = "SET_CARD_SIZE";
-export const CLEAR_ERROR = "CLEAR_ERROR";
-export const ADD_FAV = "ADD_FAV";
-export const REMOVE_FAV = "REMOVE_FAV";
+export const GET_PROPERTIES = 'GET_PROPERTIES';
+export const CLEAR_PROPERTIES = 'CLEAR_PROPERTIES';
+export const SET_CARD_SIZE = 'SET_CARD_SIZE';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const ADD_FAV = 'ADD_FAV';
+export const REMOVE_FAV = 'REMOVE_FAV';
 
 export function getProperties(place) {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
-      const BASE_URL = "https://realtor.p.rapidapi.com";
-      const SUGGESTIONS_URL = BASE_URL + "/locations/auto-complete";
+      const BASE_URL = 'https://realtor.p.rapidapi.com';
+      const SUGGESTIONS_URL = BASE_URL + '/locations/auto-complete';
       const suggestionUrlParams = encodeURI(`?input=${place}`);
       const suggestions = await http(SUGGESTIONS_URL, suggestionUrlParams);
 
       const { city, state_code } = suggestions.autocomplete[0];
 
-      const PROPERTIES_FOR_SALE_URL = BASE_URL + "/properties/v2/list-for-sale";
-      const PROPERTIES_FOR_RENT_URL = BASE_URL + "/properties/v2/list-for-rent";
+      const PROPERTIES_FOR_SALE_URL = BASE_URL + '/properties/v2/list-for-sale';
+      const PROPERTIES_FOR_RENT_URL = BASE_URL + '/properties/v2/list-for-rent';
       const propertiesUrlParams = encodeURI(
         `?sort=relevance&city=${city}&limit=500&offset=0&state_code=${state_code}`
       );
@@ -33,7 +33,7 @@ export function getProperties(place) {
         ...propertiesForRent.properties,
       ];
 
-      properties = properties.filter((prop) => {
+      properties = properties.filter(prop => {
         const {
           thumbnail,
           photos_count,
@@ -60,14 +60,15 @@ export function getProperties(place) {
       dispatch({
         type: GET_PROPERTIES,
         payload: properties,
-        error: !properties.length
-          ? "We are sorry! We have not found any properties."
-          : "",
+        error: properties.length
+          ? ''
+          : 'We are sorry! We have not found any properties.',
       });
     } catch (err) {
       dispatch({
         type: GET_PROPERTIES,
-        error: "We are sorry! Server is unavailable",
+        payload: [],
+        error: 'We are sorry! Server is unavailable',
       });
     }
   };
@@ -79,7 +80,7 @@ export function clearProperties() {
   };
 }
 
-export function setCardSize(cardSize = "standart") {
+export function setCardSize(cardSize = 'standart') {
   return {
     type: SET_CARD_SIZE,
     payload: cardSize,
