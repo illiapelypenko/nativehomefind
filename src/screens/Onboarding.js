@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
   Pressable,
   Animated,
+  Easing,
 } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import LogoArrow from "../assets/arrowRight.svg";
@@ -33,18 +34,40 @@ export const Onboarding = ({ navigation }) => {
     },
   ];
 
-  const animation = new Animated.Value(0);
+  const widthPlus = new Animated.Value(0);
+  const widthMinus = new Animated.Value(1);
 
   const viewportWidth = useWindowDimensions().width;
 
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const scaleX = animation.interpolate({
+  const scaleXPlus = widthPlus.interpolate({
     inputRange: [0, 1],
-    outputRange: [10, 25],
+    outputRange: [1, 2.5],
   });
 
-  const handleScroll = (e) => {};
+  const scaleXMinus = widthPlus.interpolate({
+    inputRange: [0, 1],
+    outputRange: [2.5, 1],
+  });
+
+  const handleOnSnapToItem = (slideIndex) => {
+    Animated.timing(widthPlus, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+      easing: Easing.linear,
+    }).start();
+
+    Animated.timing(widthMinus, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: true,
+      easing: Easing.linear,
+    }).start();
+
+    setActiveSlide(slideIndex);
+  };
 
   const slide = ({ item, index }) => (
     <View style={styles.slide}>
@@ -65,6 +88,18 @@ export const Onboarding = ({ navigation }) => {
     </View>
   );
 
+  const ActiveDot = (
+    <Animated.View
+      style={[styles.dot, { transform: [{ scaleX: scaleXPlus }] }]}
+    ></Animated.View>
+  );
+
+  const InactiveDot = (
+    <Animated.View
+      style={[styles.inactiveDot, { transform: [{ scaleX: scaleXMinus }] }]}
+    ></Animated.View>
+  );
+
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
@@ -73,7 +108,7 @@ export const Onboarding = ({ navigation }) => {
         renderItem={slide}
         sliderWidth={viewportWidth}
         itemWidth={viewportWidth}
-        onSnapToItem={setActiveSlide}
+        onSnapToItem={handleOnSnapToItem}
         // onScroll={handleScroll}
       />
       <Pagination
@@ -81,10 +116,10 @@ export const Onboarding = ({ navigation }) => {
         activeDotIndex={activeSlide}
         inactiveDotOpacity={1}
         inactiveDotScale={1}
-        // dotStyle={[styles.dot, { transform: [{ scaleX }] }]}
-        dotStyle={styles.dot}
         inactiveDotStyle={styles.inactiveDot}
         containerStyle={styles.pagination}
+        dotElement={ActiveDot}
+        inactiveDotElement={InactiveDot}
       />
     </View>
   );
@@ -142,7 +177,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   dot: {
-    width: 25,
+    width: 10,
     height: 10,
     borderRadius: 5,
     marginHorizontal: 5,
