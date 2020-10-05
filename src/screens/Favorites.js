@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, StatusBar } from "react-native";
-import colors from "../constants/colors";
+import React from 'react';
+import { View, Text, StatusBar } from 'react-native';
+import colors from 'constants/colors';
 
 export const Favorites = () => {
   return (

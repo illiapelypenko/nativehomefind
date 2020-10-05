@@ -1,10 +1,10 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Search, Favorites } from '../screens';
-import SearchLoop from '../assets/searchLoop.svg';
-import Star from '../assets/star.svg';
-import colors from '../constants/colors';
-import { SEARCH, FAVORITES } from '../constants/routeNames';
+import { Search, Favorites } from 'screens';
+import SearchLoop from 'assets/searchLoop.svg';
+import Star from 'assets/star.svg';
+import colors from 'constants/colors';
+import { SEARCH, FAVORITES } from 'constants/routeNames';
 
 const Tab = createBottomTabNavigator();
 

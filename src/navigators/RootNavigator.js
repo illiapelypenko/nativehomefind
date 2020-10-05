@@ -2,13 +2,13 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TabNavigator } from './';
-import { Onboarding, SearchResults, ErrorScreen } from '../screens';
+import { Onboarding, SearchResults, ErrorScreen } from 'screens';
 import {
   ONBOARDING,
   TAB_NAVIGATOR,
   SEARCH_RESULTS,
   ERROR_SCREEN,
-} from '../constants/routeNames';
+} from 'constants/routeNames';
 
 const Stack = createStackNavigator();
 

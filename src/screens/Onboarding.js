@@ -11,9 +11,9 @@ import {
   Easing,
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import Logo from '../assets/logo.svg';
-import colors from '../constants/colors';
-import { TAB_NAVIGATOR } from '../constants/routeNames';
+import Logo from 'assets/logo.svg';
+import colors from 'constants/colors';
+import { TAB_NAVIGATOR } from 'constants/routeNames';
 
 const slides = [
   {

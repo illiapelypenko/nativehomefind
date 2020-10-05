@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Pressable, Animated, Easing, StyleSheet, Text } from 'react-native';
-import LoadingIconSmall from '../assets/loadingIconSmall.svg';
-import colors from '../constants/colors';
+import LoadingIconSmall from 'assets/loadingIconSmall.svg';
+import colors from 'constants/colors';
 
 export const SearchButton = ({ isLoading, onPress }) => {
   const animation = new Animated.Value(0);
