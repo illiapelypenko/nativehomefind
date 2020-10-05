@@ -15,6 +15,7 @@
     "@react-navigation/native": "^5.7.5",
     "@react-navigation/stack": "^5.9.2",
     "@types/react-native-snap-carousel": "^3.8.2",
+    "babel-plugin-module-resolver": "^4.0.0",
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-bootsplash": "^2.2.6",

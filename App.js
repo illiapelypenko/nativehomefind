@@ -1,6 +1,6 @@
+import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
-import 'react-native-gesture-handler';
 import { Provider } from 'react-redux';
 import { RootNavigation } from './src/navigators/';
 import store from './src/store/store';

@@ -3,30 +3,30 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Search, Favorites } from '../screens';
 import SearchLoop from '../assets/searchLoop.svg';
 import Star from '../assets/star.svg';
-import colors from '../constats/colors';
+import colors from '../constants/colors';
+import { SEARCH, FAVORITES } from '../constants/routeNames';
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Search"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) =>
-          route.name === 'Search' ? (
-            <SearchLoop fill={color} />
+          route.name === SEARCH ? (
+            <SearchLoop color={color} />
           ) : (
-            <Star fill={color} />
+            <Star color={color} />
           ),
       })}
       tabBarOptions={{
         activeTintColor: colors.FLAMINGO,
-        inactiveTintColor: '#A6AAB4',
+        inactiveTintColor: colors.MISCHKA,
         showLabel: false,
       }}
     >
-      <Tab.Screen name="Search" component={Search} />
-      <Tab.Screen name="Favorites" component={Favorites} />
+      <Tab.Screen name={SEARCH} component={Search} />
+      <Tab.Screen name={FAVORITES} component={Favorites} />
     </Tab.Navigator>
   );
 };
