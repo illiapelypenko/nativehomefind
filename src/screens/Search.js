@@ -20,7 +20,7 @@ export const Search = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const error = useSelector((state) => state.error);
+  const error = useSelector(state => state.error);
 
   const searchInput = useRef();
 
@@ -42,9 +42,9 @@ export const Search = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.page}>
       <StatusBar backgroundColor={colors.FLAMINGO} hidden={false} />
-      <View style={styles.topPanel}>
+      {/* <View style={styles.topPanel}>
         <Text style={styles.topPanelText}>Search</Text>
-      </View>
+      </View> */}
       <View style={styles.main}>
         <Text style={styles.tip}>
           Use the form below to search for houses to buy. You can search by
@@ -56,7 +56,7 @@ export const Search = ({ navigation }) => {
             style={styles.textInput}
             onChangeText={setSearchValue}
             value={searchValue}
-            placeholder='Place-name or postcode'
+            placeholder="Place-name or postcode"
             placeholderTextColor={colors.MIRAGE}
             ref={searchInput}
           />
