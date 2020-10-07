@@ -18,25 +18,25 @@ import { TAB_NAVIGATOR } from 'constants/routeNames';
 const slides = [
   {
     text: 'Convenient mobile application for easy properties search',
-    bgSource: require('../assets/onboardingBgs/onb1.jpg'),
+    bgSource: require('../assets/onboarding/slide1.jpg'),
   },
   {
     text: 'Buy and sell your property right here and right now!',
-    bgSource: require('../assets/onboardingBgs/onb2.jpg'),
+    bgSource: require('../assets/onboarding/slide2.jpg'),
   },
   {
     text: 'Thanks to us, thousands of buyers and sellers have become happy',
-    bgSource: require('../assets/onboardingBgs/onb3.jpg'),
+    bgSource: require('../assets/onboarding/slide3.jpg'),
   },
   {
     text: 'Register and find out what your dream home looks like!',
-    bgSource: require('../assets/onboardingBgs/onb4.jpg'),
+    bgSource: require('../assets/onboarding/slide4.jpg'),
   },
 ];
 
 export const Onboarding = ({ navigation }) => {
-  const activeSlideScaleX = new Animated.Value(1);
-  const inactiveSlideScaleX = new Animated.Value(2.5);
+  const activeSlideScaleX = new Animated.Value(0);
+  const inactiveSlideScaleX = new Animated.Value(12.5);
 
   const viewportWidth = useWindowDimensions().width;
 
@@ -45,21 +45,21 @@ export const Onboarding = ({ navigation }) => {
 
   useEffect(() => {
     Animated.timing(activeSlideScaleX, {
-      toValue: 2.5,
+      toValue: 12.5,
       duration: 200,
-      useNativeDriver: true,
+      useNativeDriver: false,
       easing: Easing.linear,
     }).start();
 
     Animated.timing(inactiveSlideScaleX, {
-      toValue: 1,
+      toValue: 0,
       duration: 200,
-      useNativeDriver: true,
+      useNativeDriver: false,
       easing: Easing.linear,
     }).start();
   }, [activeSlide]);
 
-  const handleOnSnapToItem = (index) => {
+  const handleOnSnapToItem = index => {
     setPrevActiveSlide(activeSlide);
     setActiveSlide(index);
   };
@@ -83,18 +83,14 @@ export const Onboarding = ({ navigation }) => {
   const Dot = ({ index }) => (
     <Animated.View
       style={[
-        index === activeSlide ? styles.dot : styles.inactiveDot,
+        styles.dot,
         {
-          transform: [
-            {
-              scaleX:
-                index === activeSlide
-                  ? activeSlideScaleX
-                  : index === prevActiveSlide
-                  ? inactiveSlideScaleX
-                  : 1,
-            },
-          ],
+          paddingHorizontal:
+            index === activeSlide
+              ? activeSlideScaleX
+              : index === prevActiveSlide
+              ? inactiveSlideScaleX
+              : 0,
         },
       ]}
     ></Animated.View>
@@ -155,13 +151,6 @@ const styles = StyleSheet.create({
     right: 0,
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 4,
-    marginHorizontal: 10,
-    backgroundColor: colors.WHITE,
-  },
-  inactiveDot: {
     width: 10,
     height: 10,
     borderRadius: 5,

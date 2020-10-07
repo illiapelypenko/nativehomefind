@@ -14,13 +14,17 @@ const Stack = createStackNavigator();
 
 export const RootNavigation = () => (
   <NavigationContainer>
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name={ONBOARDING} component={Onboarding} />
-      <Stack.Screen name={TAB_NAVIGATOR} component={TabNavigator} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen
+        name={ONBOARDING}
+        component={Onboarding}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={TAB_NAVIGATOR}
+        component={TabNavigator}
+        // options={{ headerShown: false }}
+      />
       <Stack.Screen name={SEARCH_RESULTS} component={SearchResults} />
       <Stack.Screen name={ERROR_SCREEN} component={ErrorScreen} />
     </Stack.Navigator>
