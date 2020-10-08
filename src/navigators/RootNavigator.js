@@ -3,30 +3,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { TabNavigator } from './';
 import { Onboarding, SearchResults, ErrorScreen } from 'screens';
-import {
-  ONBOARDING,
-  TAB_NAVIGATOR,
-  SEARCH_RESULTS,
-  ERROR_SCREEN,
-} from 'constants/routeNames';
+import { ROUTES } from 'constants';
 
 const Stack = createStackNavigator();
 
 export const RootNavigation = () => (
   <NavigationContainer>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name={ONBOARDING}
-        component={Onboarding}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={TAB_NAVIGATOR}
-        component={TabNavigator}
-        // options={{ headerShown: false }}
-      />
-      <Stack.Screen name={SEARCH_RESULTS} component={SearchResults} />
-      <Stack.Screen name={ERROR_SCREEN} component={ErrorScreen} />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name={ROUTES.ONBOARDING} component={Onboarding} />
+      <Stack.Screen name={ROUTES.TAB_NAVIGATOR} component={TabNavigator} />
+      <Stack.Screen name={ROUTES.SEARCH_RESULTS} component={SearchResults} />
+      <Stack.Screen name={ROUTES.ERROR_SCREEN} component={ErrorScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

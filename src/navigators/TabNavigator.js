@@ -4,8 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Search, Favorites } from 'screens';
 import SearchLoop from 'assets/searchLoop.svg';
 import Star from 'assets/star.svg';
-import colors from 'constants/colors';
-import { SEARCH, FAVORITES } from 'constants/routeNames';
+import { COLORS, ROUTES } from 'constants';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -42,13 +41,13 @@ export const TabNavigator = () => {
           ),
       })}
       tabBarOptions={{
-        activeTintColor: colors.FLAMINGO,
-        inactiveTintColor: colors.MISCHKA,
+        activeTintColor: COLORS.FLAMINGO,
+        inactiveTintColor: COLORS.MISCHKA,
         showLabel: false,
       }}
     >
-      <Tab.Screen name={SEARCH} component={SearchStack} />
-      <Tab.Screen name={FAVORITES} component={FavoritesStack} />
+      <Tab.Screen name={ROUTES.SEARCH} component={Search} />
+      <Tab.Screen name={ROUTES.FAVORITES} component={Favorites} />
     </Tab.Navigator>
   );
 };
