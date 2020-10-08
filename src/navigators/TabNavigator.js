@@ -9,10 +9,31 @@ import { COLORS, ROUTES } from 'constants';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+const screenOptions = {
+  headerStyle: {
+    backgroundColor: COLORS.FLAMINGO,
+    shadowColor: COLORS.BLACK,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  headerTitleStyle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    lineHeight: 24,
+    color: COLORS.WHITE,
+  },
+  headerLeft: () => false,
+};
+
 const SearchStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={screenOptions}>
     <Stack.Screen
-      name={SEARCH}
+      name={ROUTES.SEARCH}
       component={Search}
       options={{ title: 'Search' }}
     />
@@ -20,9 +41,9 @@ const SearchStack = () => (
 );
 
 const FavoritesStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={screenOptions}>
     <Stack.Screen
-      name={FAVORITES}
+      name={ROUTES.FAVORITES}
       component={Favorites}
       options={{ title: 'Favorites' }}
     />
@@ -46,8 +67,8 @@ export const TabNavigator = () => {
         showLabel: false,
       }}
     >
-      <Tab.Screen name={ROUTES.SEARCH} component={Search} />
-      <Tab.Screen name={ROUTES.FAVORITES} component={Favorites} />
+      <Tab.Screen name={ROUTES.SEARCH} component={SearchStack} />
+      <Tab.Screen name={ROUTES.FAVORITES} component={FavoritesStack} />
     </Tab.Navigator>
   );
 };

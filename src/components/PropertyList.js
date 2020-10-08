@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, FlatList } from 'react-native';
-import { PropertyCard } from './PropertyCardStandart';
+import { PropertyCard } from './PropertyCard';
 
 export const PropertyList = ({ properties }) => {
   return (
-    <FlatList style={styles.propertyList}>
-      {properties.map(property => (
-        <PropertyCard property={property} />
-      ))}
-    </FlatList>
+    <FlatList
+      style={styles.propertyList}
+      data={properties}
+      keyExtractor={item => item.property_id}
+      renderItem={PropertyCard}
+    />
   );
 };
 
