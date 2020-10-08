@@ -1,10 +1,20 @@
-import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import RNBootSplash from 'react-native-bootsplash';
+import { Provider } from 'react-redux';
+import { RootNavigation } from './src/navigators/';
+import store from './src/store/store';
 
 const App = () => {
-  return <h1>Hello</h1>;
-};
+  useEffect(() => {
+    setTimeout(() => RNBootSplash.hide({ duration: 250 }), 1000);
+  }, []);
 
-const styles = StyleSheet.create({});
+  return (
+    <Provider store={store}>
+      <RootNavigation />
+    </Provider>
+  );
+};
 
 export default App;
