@@ -12,8 +12,7 @@ import {
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Logo from 'assets/logo.svg';
-import colors from 'constants/colors';
-import { TAB_NAVIGATOR } from 'constants/routeNames';
+import { ROUTES, COLORS } from 'constants';
 
 const slides = [
   {
@@ -59,7 +58,7 @@ export const Onboarding = ({ navigation }) => {
     }).start();
   }, [activeSlide]);
 
-  const handleOnSnapToItem = index => {
+  const handleOnSnapToItem = (index) => {
     setPrevActiveSlide(activeSlide);
     setActiveSlide(index);
   };
@@ -72,7 +71,7 @@ export const Onboarding = ({ navigation }) => {
       {index === slides.length - 1 && (
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate(TAB_NAVIGATOR)}
+          onPress={() => navigation.navigate(ROUTES.TAB_NAVIGATOR)}
         >
           <Text style={styles.buttonText}>Start</Text>
         </Pressable>
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   slide: {
-    backgroundColor: colors.BLACK,
+    backgroundColor: COLORS.BLACK,
     height: '100%',
     justifyContent: 'center',
     zIndex: 3,
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   secondaryText: {
-    color: colors.WHITE,
+    color: COLORS.WHITE,
     textAlign: 'center',
     fontWeight: 'bold',
     zIndex: 2,
@@ -153,9 +152,9 @@ const styles = StyleSheet.create({
   dot: {
     width: 10,
     height: 10,
-    borderRadius: 5,
+    borderRadius: 4,
     marginHorizontal: 10,
-    backgroundColor: colors.WHITE,
+    backgroundColor: COLORS.WHITE,
   },
   button: {
     alignItems: 'center',
@@ -163,11 +162,11 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 56,
     borderRadius: 3,
-    backgroundColor: colors.WHITE,
+    backgroundColor: COLORS.WHITE,
     paddingVertical: 15,
   },
   buttonText: {
-    color: colors.FLAMINGO,
+    color: COLORS.FLAMINGO,
     fontWeight: 'bold',
     fontSize: 18,
     lineHeight: 21,
