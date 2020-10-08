@@ -34,7 +34,7 @@ export const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) =>
-          route.name === SEARCH ? (
+          route.name === ROUTES.SEARCH ? (
             <SearchLoop color={color} />
           ) : (
             <Star color={color} />
