@@ -10,8 +10,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import Location from 'assets/location.svg';
 import { getProperties, clearError } from 'store/actions';
-import colors from 'constants/colors';
-import { ERROR_SCREEN, SEARCH_RESULTS } from 'constants/routeNames';
+import { COLORS, ROUTES } from 'constants';
 import { SearchButton } from 'components/SearchButton';
 
 export const Search = ({ navigation }) => {
@@ -25,7 +24,7 @@ export const Search = ({ navigation }) => {
   const searchInput = useRef();
 
   useEffect(() => {
-    if (error) navigation.navigate(ERROR_SCREEN);
+    if (error) navigation.navigate(ROUTES.ERROR_SCREEN);
   }, []);
 
   const handleSearch = async () => {
@@ -35,13 +34,13 @@ export const Search = ({ navigation }) => {
     setSearchValue('');
     await dispatch(getProperties(searchValue));
     setIsLoading(false);
-    navigation.navigate(SEARCH_RESULTS);
+    navigation.navigate(ROUTES.SEARCH_RESULTS);
     // handle error navigation
   };
 
   return (
     <SafeAreaView style={styles.page}>
-      <StatusBar backgroundColor={colors.FLAMINGO} hidden={false} />
+      <StatusBar backgroundColor={COLORS.FLAMINGO} hidden={false} />
       <View style={styles.topPanel}>
         <Text style={styles.topPanelText}>Search</Text>
       </View>
@@ -57,7 +56,7 @@ export const Search = ({ navigation }) => {
             onChangeText={setSearchValue}
             value={searchValue}
             placeholder='Place-name or postcode'
-            placeholderTextColor={colors.MIRAGE}
+            placeholderTextColor={COLORS.MIRAGE}
             ref={searchInput}
           />
           <Location style={styles.location} />
@@ -71,13 +70,13 @@ export const Search = ({ navigation }) => {
 const styles = StyleSheet.create({
   page: {
     height: '100%',
-    backgroundColor: colors.FLAMINGO,
+    backgroundColor: COLORS.FLAMINGO,
   },
   topPanel: {
     alignItems: 'center',
     padding: 18,
     // shadow not working on android, wrong shadow on ios
-    shadowColor: colors.BLACK,
+    shadowColor: COLORS.BLACK,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -85,19 +84,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 12,
     elevation: 5,
-    backgroundColor: colors.FLAMINGO,
+    backgroundColor: COLORS.FLAMINGO,
   },
   topPanelText: {
     fontWeight: 'bold',
     fontSize: 24,
     lineHeight: 24,
-    color: colors.WHITE,
+    color: COLORS.WHITE,
   },
   main: {
     flex: 1,
     paddingHorizontal: 15,
     paddingTop: 38,
-    backgroundColor: colors.SOLITUDE,
+    backgroundColor: COLORS.SOLITUDE,
   },
   tip: {
     fontSize: 18,
@@ -114,9 +113,9 @@ const styles = StyleSheet.create({
     left: 18,
   },
   textInput: {
-    backgroundColor: colors.WHITE,
+    backgroundColor: COLORS.WHITE,
     borderWidth: 1,
-    borderColor: colors.ZIRCON,
+    borderColor: COLORS.ZIRCON,
     borderRadius: 3,
     paddingHorizontal: 40,
     paddingVertical: 19,

@@ -12,25 +12,24 @@ import {
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Logo from 'assets/logo.svg';
-import colors from 'constants/colors';
-import { TAB_NAVIGATOR } from 'constants/routeNames';
+import { ROUTES, COLORS } from 'constants';
 
 const slides = [
   {
     text: 'Convenient mobile application for easy properties search',
-    bgSource: require('../assets/onboardingBgs/onb1.jpg'),
+    bgSource: require('../assets/onboarding/slide1.jpg'),
   },
   {
     text: 'Buy and sell your property right here and right now!',
-    bgSource: require('../assets/onboardingBgs/onb2.jpg'),
+    bgSource: require('../assets/onboarding/slide2.jpg'),
   },
   {
     text: 'Thanks to us, thousands of buyers and sellers have become happy',
-    bgSource: require('../assets/onboardingBgs/onb3.jpg'),
+    bgSource: require('../assets/onboarding/slide3.jpg'),
   },
   {
     text: 'Register and find out what your dream home looks like!',
-    bgSource: require('../assets/onboardingBgs/onb4.jpg'),
+    bgSource: require('../assets/onboarding/slide4.jpg'),
   },
 ];
 
@@ -72,7 +71,7 @@ export const Onboarding = ({ navigation }) => {
       {index === slides.length - 1 && (
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate(TAB_NAVIGATOR)}
+          onPress={() => navigation.navigate(ROUTES.TAB_NAVIGATOR)}
         >
           <Text style={styles.buttonText}>Start</Text>
         </Pressable>
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   slide: {
-    backgroundColor: colors.BLACK,
+    backgroundColor: COLORS.BLACK,
     height: '100%',
     justifyContent: 'center',
     zIndex: 3,
@@ -141,7 +140,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
   },
   secondaryText: {
-    color: colors.WHITE,
+    color: COLORS.WHITE,
     textAlign: 'center',
     fontWeight: 'bold',
     zIndex: 2,
@@ -159,14 +158,14 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 4,
     marginHorizontal: 10,
-    backgroundColor: colors.WHITE,
+    backgroundColor: COLORS.WHITE,
   },
   inactiveDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
     marginHorizontal: 10,
-    backgroundColor: colors.WHITE,
+    backgroundColor: COLORS.WHITE,
   },
   button: {
     alignItems: 'center',
@@ -174,11 +173,11 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 56,
     borderRadius: 3,
-    backgroundColor: colors.WHITE,
+    backgroundColor: COLORS.WHITE,
     paddingVertical: 15,
   },
   buttonText: {
-    color: colors.FLAMINGO,
+    color: COLORS.FLAMINGO,
     fontWeight: 'bold',
     fontSize: 18,
     lineHeight: 21,
