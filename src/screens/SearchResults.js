@@ -8,7 +8,7 @@ import List from 'assets/list.svg';
 import colors from 'constants/colors';
 
 export const SearchResults = ({ navigation }) => {
-  const properties = useSelector((state) => state.properties);
+  const properties = useSelector(state => state.properties);
   const [propertiesShown, setPropertiesShown] = useState(5);
   const [propertiesIsLoading, setPropertiesIsLoading] = useState(false);
 
@@ -19,8 +19,6 @@ export const SearchResults = ({ navigation }) => {
   }, [propertiesShown]);
 
   const SHOW_MORE_PROPS_VALUE = 5;
-
-  console.log(properties);
 
   return (
     <View style={styles.searchResults}>
