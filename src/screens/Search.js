@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   Text,
   View,
-  StatusBar,
   TextInput,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,7 +34,6 @@ export const Search = ({ navigation }) => {
     await dispatch(getProperties(searchValue));
     setIsLoading(false);
     navigation.navigate(ROUTES.SEARCH_RESULTS);
-    // handle error navigation
   };
 
   return (

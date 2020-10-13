@@ -1,12 +1,10 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Window from 'assets/icons/window.svg';
 import { TabNavigator } from './';
 import {
   Onboarding,
   SearchResults,
-  ErrorScreen,
   PropertyScreen,
 } from 'screens';
 import { CardStyleButton } from 'components';
@@ -38,11 +36,11 @@ const headerStyles = {
 export const RootNavigation = () => (
   <NavigationContainer>
     <Stack.Navigator>
-      {/* <Stack.Screen
+      <Stack.Screen
         name={ROUTES.ONBOARDING}
         component={Onboarding}
         options={{ headerShown: false }}
-      /> */}
+      />
       <Stack.Screen
         name={ROUTES.TAB_NAVIGATOR}
         component={TabNavigator}

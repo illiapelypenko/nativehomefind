@@ -26,10 +26,9 @@ export const PropertyList = ({ properties }) => {
           favs={favs}
         />
       )}
+      onEndReachedThreshold={0}
       onEndReached={({distanceFromEnd}) => {
-        if(!distanceFromEnd) {
-          console.log('end');
-        }
+        console.log(distanceFromEnd)
       }}
     />
   );

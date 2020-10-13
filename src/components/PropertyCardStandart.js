@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     height: 32,
     backgroundColor: COLORS.FLAMINGO,
     transform: [
-      { translateX: -160 },
+      { translateX: -155 },
       { translateY: 16 },
       { rotateZ: '-45deg' },
     ],
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   price: {
-    fontWeight: '900',
+    fontWeight: 'bold',
     fontSize: 16,
     lineHeight: 19,
     color: COLORS.FLAMINGO,

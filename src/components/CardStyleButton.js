@@ -10,12 +10,15 @@ export const CardStyleButton = () => {
   const dispatch = useDispatch();
 
   const handlePress = () => {
-    dispatch(setCardSize(cardSize === 'standart' ? 'minified' : 'standart'));
+    const value = cardSize === 'standart' ? 'minified' : 'standart'
+    dispatch(setCardSize(value));
   };
+
+  const ViewIcon = () => cardSize === 'standart' ? <Window /> : <List />
 
   return (
     <Pressable style={styles.btn} onPress={handlePress}>
-      {cardSize === 'standart' ? <Window /> : <List />}
+      <ViewIcon />
     </Pressable>
   );
 };
