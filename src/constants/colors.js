@@ -5,5 +5,6 @@ export default {
   MISCHKA: '#A6AAB4',
   BLACK: '#000000',
   WHITE: '#ffffff',
+  TRANSPARENT_WHITE: 'rgba(255, 255, 255, 0.5)',
   SOLITUDE: '#F9FAFB',
 };

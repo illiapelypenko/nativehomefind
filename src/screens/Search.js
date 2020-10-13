@@ -8,10 +8,10 @@ import {
   TextInput,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Location from 'assets/location.svg';
+import Location from 'assets/icons/location.svg';
 import { getProperties, clearError } from 'store/actions';
 import { COLORS, ROUTES } from 'constants';
-import { SearchButton } from 'components/SearchButton';
+import { SearchButton } from 'components';
 
 export const Search = ({ navigation }) => {
   const dispatch = useDispatch();
