@@ -7,11 +7,11 @@ export async function http(url, urlParams = '') {
   };
 
   function wait(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
+    return new Promise(resolve => setTimeout(resolve, time));
   }
 
   try {
-    const timeout = async (time = 20000) => {
+    const timeout = async (time = 60000) => {
       await wait(time);
 
       throw Error('Session timeout');

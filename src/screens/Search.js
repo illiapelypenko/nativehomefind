@@ -8,10 +8,10 @@ import {
   TextInput,
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import Location from 'assets/location.svg';
+import Location from 'assets/icons/location.svg';
 import { getProperties, clearError } from 'store/actions';
 import { COLORS, ROUTES } from 'constants';
-import { SearchButton } from 'components/SearchButton';
+import { SearchButton } from 'components';
 
 export const Search = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export const Search = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const error = useSelector((state) => state.error);
+  const error = useSelector(state => state.error);
 
   const searchInput = useRef();
 
@@ -55,7 +55,7 @@ export const Search = ({ navigation }) => {
             style={styles.textInput}
             onChangeText={setSearchValue}
             value={searchValue}
-            placeholder='Place-name or postcode'
+            placeholder="Place-name or postcode"
             placeholderTextColor={COLORS.MIRAGE}
             ref={searchInput}
           />

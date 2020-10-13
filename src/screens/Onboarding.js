@@ -11,7 +11,7 @@ import {
   Easing,
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import Logo from 'assets/logo.svg';
+import Logo from 'assets/icons/logo.svg';
 import { ROUTES, COLORS } from 'constants';
 
 const slides = [
@@ -58,7 +58,7 @@ export const Onboarding = ({ navigation }) => {
     }).start();
   }, [activeSlide]);
 
-  const handleOnSnapToItem = (index) => {
+  const handleOnSnapToItem = index => {
     setPrevActiveSlide(activeSlide);
     setActiveSlide(index);
   };
