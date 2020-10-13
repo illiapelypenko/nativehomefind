@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { PropertyCardStandart, PropertyCardMinified } from './';
+import { PropertyCardMinified }  from './PropertyCardMinified';
+import { PropertyCardStandart } from './PropertyCardStandart';
 import { ROUTES } from 'constants';
 import { addFav, removeFav } from 'store/actions';
 

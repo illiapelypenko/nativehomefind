@@ -69,7 +69,6 @@ export const TabNavigator = () => {
     >
       <Tab.Screen name={ROUTES.SEARCH} component={SearchStack} />
       <Tab.Screen name={ROUTES.FAVORITES} component={FavoritesStack} />
-      // stack screen
     </Tab.Navigator>
   );
 };
