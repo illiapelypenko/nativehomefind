@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { COLORS } from 'constants';
-import { addSpacesTo } from 'utils/utils';
+import { addSpacesTo } from 'utils/formatters';
 
 export const PropertyScreen = ({ route, navigation }) => {
   const {
@@ -22,9 +22,9 @@ export const PropertyScreen = ({ route, navigation }) => {
   }, []);
 
   return (
-    <View style={styles.screen}>
+    <View style={styles.container}>
       <View style={styles.infoDetails}>
-        <View style={styles.statusWrapper}>
+        <View style={styles.statusContainer}>
           <Text style={styles.status}>{prop_status.slice(4)}</Text>
         </View>
         <Text style={styles.infoDetailsText}>Baths: {baths}&nbsp;</Text>
@@ -39,7 +39,7 @@ export const PropertyScreen = ({ route, navigation }) => {
         <Text style={styles.title}>
           {neighborhood_name}, {city}
         </Text>
-        <View style={styles.priceWrapper}>
+        <View style={styles.priceContainer}>
           <Text style={styles.price}>{`$${addSpacesTo(price)}`}</Text>
         </View>
       </View>
@@ -62,7 +62,7 @@ export const PropertyScreen = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
     paddingTop: 27,
     paddingHorizontal: 15,
   },
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 18,
   },
-  statusWrapper: {
+  statusContainer: {
     borderRadius: 3,
     backgroundColor: COLORS.FLAMINGO,
     padding: 11,
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     marginRight: 20,
   },
-  priceWrapper: {
+  priceContainer: {
     backgroundColor: COLORS.FLAMINGO,
     borderRadius: 3,
     paddingVertical: 11,

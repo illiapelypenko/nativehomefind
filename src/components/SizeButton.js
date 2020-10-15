@@ -1,30 +1,30 @@
 import React from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Window from 'assets/icons/window.svg';
 import List from 'assets/icons/list.svg';
 import { setCardSize } from 'store/actions';
 
-export const CardStyleButton = () => {
-  const cardSize = useSelector(state => state.cardSize);
+export const SizeButton = () => {
+  const size = useSelector(state => state.cardSize);
   const dispatch = useDispatch();
 
   const handlePress = () => {
-    const value = cardSize === 'standart' ? 'minified' : 'standart'
+    const value = size === 'standart' ? 'minified' : 'standart';
     dispatch(setCardSize(value));
   };
 
-  const ViewIcon = () => cardSize === 'standart' ? <Window /> : <List />
-
   return (
-    <Pressable style={styles.btn} onPress={handlePress}>
-      <ViewIcon />
+    <Pressable style={styles.container} onPress={handlePress}>
+      {size === 'standart' ? <Window /> : <List />}
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  btn: {
-    padding: 10,
+  container: {
+    position: 'absolute',
+    right: 0,
+    padding: 20,
   },
 });

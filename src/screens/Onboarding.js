@@ -10,9 +10,11 @@ import {
   Animated,
   Easing,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Logo from 'assets/icons/logo.svg';
 import { ROUTES, COLORS } from 'constants';
+import { setAlreadyLaunched } from 'store/actions';
 
 const slides = [
   {
@@ -42,6 +44,13 @@ export const Onboarding = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [prevActiveSlide, setPrevActiveSlide] = useState(null);
 
+  const dispatch = useDispatch();
+  const alreadyLaunched = useSelector(state => state.alreadyLaunched);
+
+  useEffect(() => {
+    if (alreadyLaunched) navigation.navigate(ROUTES.TAB_NAVIGATOR);
+  }, []);
+
   useEffect(() => {
     Animated.timing(activeSlideScaleX, {
       toValue: 12.5,
@@ -63,16 +72,18 @@ export const Onboarding = ({ navigation }) => {
     setActiveSlide(index);
   };
 
+  const handlePress = () => {
+    dispatch(setAlreadyLaunched());
+    navigation.navigate(ROUTES.TAB_NAVIGATOR);
+  };
+
   const renderSlide = ({ item, index }) => (
     <View style={styles.slide}>
       <ImageBackground source={item.bgSource} style={styles.background} />
       <Logo style={styles.logo} />
       <Text style={styles.secondaryText}>{item.text}</Text>
       {index === slides.length - 1 && (
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate(ROUTES.TAB_NAVIGATOR)}
-        >
+        <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Start</Text>
         </Pressable>
       )}
@@ -152,7 +163,7 @@ const styles = StyleSheet.create({
   dot: {
     width: 10,
     height: 10,
-    borderRadius: 4,
+    borderRadius: 5,
     marginHorizontal: 10,
     backgroundColor: COLORS.WHITE,
   },

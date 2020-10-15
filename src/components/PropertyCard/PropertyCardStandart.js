@@ -9,7 +9,7 @@ import {
 import StarInactive from 'assets/icons/starInactive.svg';
 import StarActive from 'assets/icons/starActive.svg';
 import { COLORS } from 'constants';
-import { addSpacesTo } from 'utils/utils';
+import { addSpacesTo } from 'utils/formatters';
 
 export const PropertyCardStandart = props => {
   const {
@@ -24,23 +24,24 @@ export const PropertyCardStandart = props => {
       address: { city, neighborhood_name },
     },
     onPress,
-    removeFav,
-    addFav,
-    isFav,
+    removeFavorite,
+    addFavorite,
+    isFavorite,
   } = props;
 
+  const StarIcon = isFavorite ? StarActive : StarInactive;
+
   const Star = () => (
-    <Pressable onPress={isFav ? removeFav : addFav} style={styles.starWrapper}>
-      {isFav ? (
-        <StarActive style={styles.star} />
-      ) : (
-        <StarInactive style={styles.star} />
-      )}
+    <Pressable
+      onPress={isFavorite ? removeFavorite : addFavorite}
+      style={styles.starContainer}
+    >
+      <StarIcon style={styles.star} />
     </Pressable>
   );
 
   return (
-    <Pressable style={styles.card} onPress={onPress}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.ribbon}>
         <Text style={styles.ribbonText}>{prop_status.slice(4)}</Text>
       </View>
@@ -72,7 +73,7 @@ export const PropertyCardStandart = props => {
 };
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
     alignItems: 'center',
     marginBottom: 14,
     backgroundColor: COLORS.WHITE,
@@ -105,14 +106,12 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     color: COLORS.WHITE,
   },
-  starWrapper: {
+  starContainer: {
     position: 'absolute',
     top: 0,
     right: 0,
     padding: 19,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 2
+    zIndex: 2,
   },
   star: {
     color: COLORS.ZIRCON,
@@ -120,7 +119,7 @@ const styles = StyleSheet.create({
   title: {
     marginVertical: 28,
     alignItems: 'center',
-    width: '75%',
+    paddingHorizontal: 50,
   },
   neighborhoodName: {
     fontWeight: '500',
