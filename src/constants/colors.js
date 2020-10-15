@@ -7,4 +7,5 @@ export default {
   WHITE: '#ffffff',
   TRANSPARENT_WHITE: 'rgba(255, 255, 255, 0.5)',
   SOLITUDE: '#F9FAFB',
+  RAVEN: '#6F757B',
 };

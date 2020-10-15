@@ -28,28 +28,25 @@ const headerStyles = {
     shadowRadius: 12,
     elevation: 5,
   },
-  headerTitleStyle: {
-    flex: 1,
-    textAlign: 'center',
-    fontWeight: '500',
-    fontSize: 18,
-    lineHeight: 21,
-  },
   headerTintColor: COLORS.WHITE,
   headerBackTitle: ' ',
 };
 
-export const RootNavigation = () => {
+export const RootNavigation = ({ alreadyLaunched }) => {
   const error = useSelector(state => state.error);
   const ref = useRef();
 
   useEffect(() => {
-    console.log(error);
-    if (error) {
-      console.log(error);
-      ref.navigate(ROUTES.ERROR_SCREEN);
+    if (error.message) {
+      ref.current.navigate(ROUTES.ERROR_SCREEN);
     }
-  }, [error]);
+  }, [error.message]);
+
+  useEffect(() => {
+    if (alreadyLaunched) {
+      ref.current.navigate(ROUTES.TAB_NAVIGATOR);
+    }
+  }, [alreadyLaunched]);
 
   return (
     <NavigationContainer ref={ref}>
@@ -70,17 +67,40 @@ export const RootNavigation = () => {
           options={{
             ...headerStyles,
             headerRight: () => <SizeButton />,
+            headerTitleStyle: {
+              flex: 1,
+              textAlign: 'center',
+              fontWeight: '500',
+              fontSize: 18,
+              lineHeight: 21,
+            },
           }}
         />
         <Screen
           name={ROUTES.PROPERTY_SCREEN}
           component={PropertyScreen}
-          options={{ ...headerStyles }}
+          options={{
+            ...headerStyles,
+            headerTitleStyle: {
+              flex: 1,
+              textAlign: 'center',
+              fontWeight: '500',
+              fontSize: 19,
+              lineHeight: 22,
+            },
+          }}
         />
         <Screen
           name={ROUTES.ERROR_SCREEN}
           component={ErrorScreen}
-          options={{ ...headerStyles }}
+          options={{
+            ...headerStyles,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontSize: 24,
+              lineHeight: 24,
+            },
+          }}
         />
       </Navigator>
     </NavigationContainer>

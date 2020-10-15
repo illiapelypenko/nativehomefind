@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Location from 'assets/icons/location.svg';
 import { getProperties } from 'store/actions';
 import { COLORS, ROUTES } from 'constants';

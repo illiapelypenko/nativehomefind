@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  Platform,
+} from 'react-native';
 import StarInactive from 'assets/icons/starInactive.svg';
 import StarActive from 'assets/icons/starActive.svg';
 import { COLORS } from 'constants';
@@ -85,11 +92,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 32,
     backgroundColor: COLORS.FLAMINGO,
-    transform: [
-      { rotateZ: '-45deg' },
-      { translateX: -110 },
-      { translateY: -100 },
-    ],
+    transform:
+      Platform.OS === 'ios'
+        ? [{ rotateZ: '-45deg' }, { translateX: -115 }, { translateY: -107 }]
+        : [{ rotateZ: '-45deg' }, { translateX: -110 }, { translateY: -100 }],
     zIndex: 2,
   },
   ribbonText: {

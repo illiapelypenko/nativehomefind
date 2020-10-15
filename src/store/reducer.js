@@ -6,18 +6,21 @@ import {
   SET_ERROR,
   ADD_FAVORITE,
   REMOVE_FAVORITE,
-  SET_ALREADY_LAUNCHED,
+  SET_FAVORITES,
 } from './actions';
+import { setItem } from 'utils/asyncStorage';
 
 const initialState = {
   properties: [],
-  error: '',
+  error: {
+    message: '',
+    type: '',
+  },
   cardSize: 'standart',
   favorites: [],
-  alreadyLaunched: false,
 };
 
-async function reducer(state = initialState, action) {
+function reducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -26,29 +29,32 @@ async function reducer(state = initialState, action) {
     case CLEAR_PROPERTIES:
       return { ...state, properties: [] };
     case SET_CARD_SIZE:
-      return { ...state, cardSize: action.payload };
+      return { ...state, cardSize: payload };
     case SET_ERROR:
-      console.log(action.payload);
-      return { ...state, error: action.payload };
+      return { ...state, error: payload };
     case CLEAR_ERROR:
-      return { ...state, error: '' };
+      return { ...state, error: initialState.error };
     case ADD_FAVORITE:
+      const favorites = [
+        ...state.favorites,
+        state.properties.find(property => property.property_id === payload),
+      ];
+      setItem('favorites', favorites);
+
       return {
         ...state,
-        favorites: [
-          ...state.favorites,
-          state.properties.find(
-            property => property.property_id === action.payload
-          ),
-        ],
+        favorites,
+      };
+    case SET_FAVORITES:
+      return {
+        ...state,
+        favorites: payload,
       };
     case REMOVE_FAVORITE:
-      const favorites = state.favorites.filter(
-        item => item.property_id !== action.payload
-      );
-      return { ...state, favorites };
-    case SET_ALREADY_LAUNCHED:
-      return { ...state, alreadyLaunched: true };
+      const favs = state.favorites.filter(item => item.property_id !== payload);
+      setItem('favorites', favs);
+
+      return { ...state, favorites: favs };
     default:
       return state;
   }

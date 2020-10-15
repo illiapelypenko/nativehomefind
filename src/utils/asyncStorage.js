@@ -13,10 +13,21 @@ export const loadState = async () => {
   }
 };
 
-export const saveState = async state => {
+export const setItem = async (name, value) => {
   try {
-    await AsyncStorage.setItem('state', JSON.stringify(state));
+    await AsyncStorage.setItem(name, JSON.stringify(value));
   } catch {}
 };
 
-// setalrearyl
+export const getItem = async value => {
+  try {
+    const data = await AsyncStorage.getItem(value);
+    if (data === null) {
+      return undefined;
+    }
+
+    return JSON.parse(data);
+  } catch (err) {
+    return undefined;
+  }
+};

@@ -1,28 +1,39 @@
 import 'react-native-gesture-handler';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { RootNavigation } from './src/navigators/';
-import ErrorBoundary from './src/ErrorBoundary';
 import store from './src/store/store';
+import { getItem } from 'utils/asyncStorage';
+import { setCardSize, setFavorites } from 'store/actions';
 
 const App = () => {
-  //setsState alreadySignIn
+  const [alreadyLaunched, setAlreadyLaunched] = useState(false);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    setTimeout(() => RNBootSplash.hide({ duration: 250 }), 1000);
-    //async storage get item alreadySignIn
+    getPersistedData().then(
+      RNBootSplash.hide.bind(undefined, { duration: 250 })
+    );
   }, []);
 
-  // if (!alreadySignIn) return <Error/>
+  const getPersistedData = async () => {
+    const alreadyLaunched = await getItem('alreadyLaunched');
+    const size = await getItem('size');
+    const favorites = await getItem('favorites');
+    setAlreadyLaunched(!!alreadyLaunched);
+    if (size) dispatch(setCardSize(size));
+    if (favorites) dispatch(setFavorites(favorites));
+  };
 
-  return (
-    <Provider store={store}>
-      {/* <ErrorBoundary> */}
-      {/* <RootNavigation initialName={screen / onboarding} /> */}
-      <RootNavigation />
-      {/* </ErrorBoundary> */}
-    </Provider>
-  );
+  return <RootNavigation alreadyLaunched={alreadyLaunched} />;
 };
 
-export default App;
+const AppContainer = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+export default AppContainer;
