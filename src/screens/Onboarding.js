@@ -10,11 +10,11 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Logo from 'assets/icons/logo.svg';
 import { ROUTES, COLORS } from 'constants';
-import { setAlreadyLaunched } from 'store/actions';
+import { setItem } from 'utils/asyncStorage';
 
 const slides = [
   {
@@ -44,7 +44,6 @@ export const Onboarding = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [prevActiveSlide, setPrevActiveSlide] = useState(null);
 
-  const dispatch = useDispatch();
   const alreadyLaunched = useSelector(state => state.alreadyLaunched);
 
   useEffect(() => {
@@ -73,7 +72,7 @@ export const Onboarding = ({ navigation }) => {
   };
 
   const handlePress = () => {
-    dispatch(setAlreadyLaunched());
+    setItem('alreadyLaunched', true);
     navigation.navigate(ROUTES.TAB_NAVIGATOR);
   };
 

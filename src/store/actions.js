@@ -7,7 +7,7 @@ export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const SET_ERROR = 'SET_ERROR';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
-export const SET_ALREADY_LAUNCHED = 'SET_ALREADY_LAUNCHED';
+export const SET_FAVORITES = 'SET_FAVORITES';
 
 export function getProperties(place) {
   return async dispatch => {
@@ -69,7 +69,10 @@ export function getProperties(place) {
     } catch (error) {
       dispatch({
         type: SET_ERROR,
-        payload: error.message,
+        payload: {
+          message: error.message,
+          type: 'Search',
+        },
       });
       throw Error();
     }
@@ -103,14 +106,25 @@ export function removeFavorite(property_id) {
   };
 }
 
+export function setError(message, type) {
+  return {
+    type: SET_ERROR,
+    payload: {
+      message,
+      type,
+    },
+  };
+}
+
 export function clearError() {
   return {
     type: CLEAR_ERROR,
   };
 }
 
-export function setAlreadyLaunched() {
+export function setFavorites(favorites) {
   return {
-    type: SET_ALREADY_LAUNCHED,
+    type: SET_FAVORITES,
+    payload: favorites,
   };
 }
