@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import StarInactive from 'assets/icons/starInactive.svg';
 import StarActive from 'assets/icons/starActive.svg';
 import { COLORS } from 'constants';
-import { addSpacesTo } from 'utils/utils';
+import { addSpacesTo } from 'utils/formatters';
 
 export const PropertyCardMinified = props => {
   const {
@@ -18,23 +18,24 @@ export const PropertyCardMinified = props => {
       address: { city, neighborhood_name },
     },
     onPress,
-    removeFav,
-    addFav,
-    isFav,
+    removeFavorite,
+    addFavorite,
+    isFavorite,
   } = props;
 
+  const StarIcon = isFavorite ? StarActive : StarInactive;
+
   const Star = () => (
-    <Pressable onPress={isFav ? removeFav : addFav} style={styles.starWrapper}>
-      {isFav ? (
-        <StarActive style={styles.star} />
-      ) : (
-        <StarInactive style={styles.star} />
-      )}
+    <Pressable
+      onPress={isFavorite ? removeFavorite : addFavorite}
+      style={styles.starContainer}
+    >
+      <StarIcon style={styles.star} />
     </Pressable>
   );
 
   return (
-    <Pressable style={styles.card} onPress={onPress}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.ribbon}>
         <Text style={styles.ribbonText}>{prop_status.slice(4)}</Text>
       </View>
@@ -55,7 +56,7 @@ export const PropertyCardMinified = props => {
         </View>
         <Text style={styles.description} numberOfLines={2}>
           It’s a spacious house with two large bedrooms, a living room, a large
-          kit...
+          kitchen and etc
         </Text>
       </View>
     </Pressable>
@@ -63,7 +64,7 @@ export const PropertyCardMinified = props => {
 };
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
     flexDirection: 'row',
     marginBottom: 11,
     backgroundColor: COLORS.WHITE,
@@ -98,14 +99,12 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
     color: COLORS.WHITE,
   },
-  starWrapper: {
+  starContainer: {
     position: 'absolute',
     top: 0,
     right: 0,
     padding: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 2
+    zIndex: 2,
   },
   star: {
     color: COLORS.ZIRCON,
@@ -114,10 +113,10 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     marginRight: 11,
-    flex: 0
+    flex: 0,
   },
   info: {
-    flex: 1
+    flex: 1,
   },
   title: {
     marginTop: 7,

@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './reducer';
+import { saveState } from 'utils/asyncStorage';
 
 const middlewares = [thunk];
 

@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  View,
-  TextInput,
-} from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Location from 'assets/icons/location.svg';
-import { getProperties, clearError } from 'store/actions';
+import { getProperties } from 'store/actions';
 import { COLORS, ROUTES } from 'constants';
 import { SearchButton } from 'components';
 
@@ -18,37 +12,38 @@ export const Search = ({ navigation }) => {
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const error = useSelector(state => state.error);
-
   const searchInput = useRef();
 
   useEffect(() => {
-    if (error) navigation.navigate(ROUTES.ERROR_SCREEN);
-  }, []);
+    navigation.addListener('beforeRemove', e => {
+      e.preventDefault();
+    });
+  }, [navigation]);
 
   const handleSearch = async () => {
     // if already focused, no keyboard pop up
-    if (!searchValue) return searchInput.current.focus();
-    setIsLoading(true);
-    setSearchValue('');
-    await dispatch(getProperties(searchValue));
-    setIsLoading(false);
-    navigation.navigate(ROUTES.SEARCH_RESULTS);
+    try {
+      if (!searchValue) return searchInput.current.focus();
+      setIsLoading(true);
+      setSearchValue('');
+      await dispatch(getProperties(searchValue));
+      setIsLoading(false);
+      navigation.navigate(ROUTES.SEARCH_RESULTS);
+    } catch {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <SafeAreaView style={styles.page}>
-      {/* <StatusBar backgroundColor={COLORS.FLAMINGO} hidden={false} />
-      <View style={styles.topPanel}>
-        <Text style={styles.topPanelText}>Search</Text>
-      </View>  */}
+    <View style={styles.container}>
       <View style={styles.main}>
         <Text style={styles.tip}>
           Use the form below to search for houses to buy. You can search by
           place-name, post- code, or click “My location”, to search in your
           current location.
         </Text>
-        <View style={styles.textInputWrapper}>
+        <View style={styles.textInputContainer}>
           <TextInput
             style={styles.textInput}
             onChangeText={setSearchValue}
@@ -61,27 +56,13 @@ export const Search = ({ navigation }) => {
         </View>
         <SearchButton isLoading={isLoading} onPress={handleSearch} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  page: {
+  container: {
     height: '100%',
-    backgroundColor: COLORS.FLAMINGO,
-  },
-  topPanel: {
-    alignItems: 'center',
-    padding: 18,
-    // shadow not working on android, wrong shadow on ios
-    shadowColor: COLORS.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.5,
-    shadowRadius: 12,
-    elevation: 5,
     backgroundColor: COLORS.FLAMINGO,
   },
   topPanelText: {
@@ -100,7 +81,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 27,
   },
-  textInputWrapper: {
+  textInputContainer: {
     position: 'relative',
     marginTop: 27,
     marginBottom: 11,

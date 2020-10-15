@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TabNavigator } from './';
+import { TabNavigator } from './TabNavigator';
 import {
   Onboarding,
   SearchResults,
   PropertyScreen,
+  ErrorScreen,
 } from 'screens';
-import { CardStyleButton } from 'components';
+import { SizeButton } from 'components';
 import { COLORS, ROUTES } from 'constants';
 
 const Stack = createStackNavigator();
+
+const { Navigator, Screen } = Stack;
 
 const headerStyles = {
   headerStyle: {
@@ -25,6 +29,8 @@ const headerStyles = {
     elevation: 5,
   },
   headerTitleStyle: {
+    flex: 1,
+    textAlign: 'center',
     fontWeight: '500',
     fontSize: 18,
     lineHeight: 21,
@@ -33,32 +39,50 @@ const headerStyles = {
   headerBackTitle: ' ',
 };
 
-export const RootNavigation = () => (
-  <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen
-        name={ROUTES.ONBOARDING}
-        component={Onboarding}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={ROUTES.TAB_NAVIGATOR}
-        component={TabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name={ROUTES.SEARCH_RESULTS}
-        component={SearchResults}
-        options={{
-          ...headerStyles,
-          headerRight: () => <CardStyleButton />,
-        }}
-      />
-      <Stack.Screen
-        name={ROUTES.PROPERTY_SCREEN}
-        component={PropertyScreen}
-        options={{ ...headerStyles }}
-      />
-    </Stack.Navigator>
-  </NavigationContainer>
-);
+export const RootNavigation = () => {
+  const error = useSelector(state => state.error);
+  const ref = useRef();
+
+  useEffect(() => {
+    console.log(error);
+    if (error) {
+      console.log(error);
+      ref.navigate(ROUTES.ERROR_SCREEN);
+    }
+  }, [error]);
+
+  return (
+    <NavigationContainer ref={ref}>
+      <Navigator>
+        <Screen
+          name={ROUTES.ONBOARDING}
+          component={Onboarding}
+          options={{ headerShown: false }}
+        />
+        <Screen
+          name={ROUTES.TAB_NAVIGATOR}
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Screen
+          name={ROUTES.SEARCH_RESULTS}
+          component={SearchResults}
+          options={{
+            ...headerStyles,
+            headerRight: () => <SizeButton />,
+          }}
+        />
+        <Screen
+          name={ROUTES.PROPERTY_SCREEN}
+          component={PropertyScreen}
+          options={{ ...headerStyles }}
+        />
+        <Screen
+          name={ROUTES.ERROR_SCREEN}
+          component={ErrorScreen}
+          options={{ ...headerStyles }}
+        />
+      </Navigator>
+    </NavigationContainer>
+  );
+};

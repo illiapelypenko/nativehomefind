@@ -4,8 +4,10 @@ export const GET_PROPERTIES = 'GET_PROPERTIES';
 export const CLEAR_PROPERTIES = 'CLEAR_PROPERTIES';
 export const SET_CARD_SIZE = 'SET_CARD_SIZE';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
-export const ADD_FAV = 'ADD_FAV';
-export const REMOVE_FAV = 'REMOVE_FAV';
+export const SET_ERROR = 'SET_ERROR';
+export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const SET_ALREADY_LAUNCHED = 'SET_ALREADY_LAUNCHED';
 
 export function getProperties(place) {
   return async dispatch => {
@@ -57,19 +59,19 @@ export function getProperties(place) {
         );
       });
 
+      if (!properties.length)
+        throw Error('We are sorry! We have not found any properties.');
+
       dispatch({
         type: GET_PROPERTIES,
         payload: properties,
-        error: properties.length
-          ? ''
-          : 'We are sorry! We have not found any properties.',
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
-        type: GET_PROPERTIES,
-        payload: [],
-        error: 'We are sorry! Server is unavailable',
+        type: SET_ERROR,
+        payload: error.message,
       });
+      throw Error();
     }
   };
 }
@@ -87,22 +89,28 @@ export function setCardSize(cardSize = 'standart') {
   };
 }
 
-export function addFav(fav) {
+export function addFavorite(property_id) {
   return {
-    type: ADD_FAV,
-    payload: fav,
+    type: ADD_FAVORITE,
+    payload: property_id,
   };
 }
 
-export function removeFav(fav) {
+export function removeFavorite(property_id) {
   return {
-    type: REMOVE_FAV,
-    payload: fav,
+    type: REMOVE_FAVORITE,
+    payload: property_id,
   };
 }
 
 export function clearError() {
   return {
     type: CLEAR_ERROR,
+  };
+}
+
+export function setAlreadyLaunched() {
+  return {
+    type: SET_ALREADY_LAUNCHED,
   };
 }
