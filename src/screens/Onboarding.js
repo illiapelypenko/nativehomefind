@@ -160,6 +160,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     backgroundColor: COLORS.WHITE,
   },
+  inactiveDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 10,
+    backgroundColor: COLORS.WHITE,
+  },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
