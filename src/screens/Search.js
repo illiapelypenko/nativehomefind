@@ -15,9 +15,13 @@ export const Search = ({ navigation }) => {
   const searchInput = useRef();
 
   useEffect(() => {
-    navigation.addListener('beforeRemove', e => {
+    const preventGoingBag = e => {
       e.preventDefault();
-    });
+    };
+
+    navigation.addListener('beforeRemove', preventGoingBag);
+
+    return navigation.removeListener('beforeRemove', preventGoingBag);
   }, [navigation]);
 
   const handleSearch = async () => {
