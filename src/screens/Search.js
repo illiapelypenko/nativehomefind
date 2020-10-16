@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import Location from 'assets/icons/location.svg';
 import { getProperties } from 'store/actions';
 import { COLORS, ROUTES } from 'constants';
-import { SearchButton } from 'components';
+import { SearchButton } from 'components/Search/SearchButton';
+import { SearchInput } from 'components/Search/SearchInput';
 
 export const Search = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ export const Search = ({ navigation }) => {
   }, [navigation]);
 
   const handleSearch = async () => {
-    // if already focused, no keyboard pop up
     try {
       if (!searchValue) return searchInput.current.focus();
       setIsLoading(true);
@@ -43,17 +42,15 @@ export const Search = ({ navigation }) => {
           place-name, post- code, or click “My location”, to search in your
           current location.
         </Text>
-        <View style={styles.textInputContainer}>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={setSearchValue}
-            value={searchValue}
-            placeholder="Place-name or postcode"
-            placeholderTextColor={COLORS.MIRAGE}
-            ref={searchInput}
-          />
-          <Location style={styles.location} />
-        </View>
+        <SearchInput
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}
+          ref={searchInput}
+          style={{
+            marginTop: 27,
+            marginBottom: 11,
+          }}
+        />
         <SearchButton isLoading={isLoading} onPress={handleSearch} />
       </View>
     </View>
@@ -81,24 +78,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 27,
     color: COLORS.BLACK,
-  },
-  textInputContainer: {
-    position: 'relative',
-    marginTop: 27,
-    marginBottom: 11,
-    justifyContent: 'center',
-  },
-  location: {
-    position: 'absolute',
-    left: 18,
-  },
-  textInput: {
-    backgroundColor: COLORS.WHITE,
-    borderWidth: 1,
-    borderColor: COLORS.ZIRCON,
-    borderRadius: 3,
-    paddingHorizontal: 40,
-    paddingVertical: Platform.OS === 'ios' ? 20 : 13,
-    fontWeight: '500',
   },
 });
