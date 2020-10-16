@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Platform } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Location from 'assets/icons/location.svg';
 import { getProperties } from 'store/actions';
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.ZIRCON,
     borderRadius: 3,
     paddingHorizontal: 40,
-    paddingVertical: 13,
+    paddingVertical: Platform.OS === 'ios' ? 20 : 13,
     fontWeight: '500',
   },
 });
