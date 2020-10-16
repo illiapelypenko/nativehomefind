@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -31,6 +31,9 @@ const headerStyles = {
   },
   headerTintColor: COLORS.WHITE,
   headerBackTitle: ' ',
+  headerLeftContainerStyle: {
+    padding: Platform.OS === 'ios' ? 10 : 0,
+  },
 };
 
 export const RootNavigation = ({ alreadyLaunched }) => {
@@ -90,15 +93,12 @@ export const RootNavigation = ({ alreadyLaunched }) => {
           options={{
             ...headerStyles,
             headerTitleStyle: {
-              flex: 1,
-              textAlign: 'center',
               fontWeight: '500',
               fontSize: 19,
               lineHeight: 22,
             },
-            headerTitleContainerStyle: {
-              left: 0,
-            },
+            headerTitleAlign: 'left',
+            headerTitleContainerStyle: { left: 50 },
           }}
         />
         <Screen
