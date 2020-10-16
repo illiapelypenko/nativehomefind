@@ -1,4 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
+import { View } from 'react-native';
 import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -51,11 +52,13 @@ export const RootNavigation = ({ alreadyLaunched }) => {
   return (
     <NavigationContainer ref={ref}>
       <Navigator>
-        <Screen
-          name={ROUTES.ONBOARDING}
-          component={Onboarding}
-          options={{ headerShown: false }}
-        />
+        {alreadyLaunched || (
+          <Screen
+            name={ROUTES.ONBOARDING}
+            component={Onboarding}
+            options={{ headerShown: false }}
+          />
+        )}
         <Screen
           name={ROUTES.TAB_NAVIGATOR}
           component={TabNavigator}
@@ -66,7 +69,11 @@ export const RootNavigation = ({ alreadyLaunched }) => {
           component={SearchResults}
           options={{
             ...headerStyles,
-            headerRight: () => <SizeButton />,
+            headerRight: () => (
+              <View style={{ padding: 20 }}>
+                <SizeButton />
+              </View>
+            ),
             headerTitleStyle: {
               flex: 1,
               textAlign: 'center',
@@ -87,6 +94,9 @@ export const RootNavigation = ({ alreadyLaunched }) => {
               fontWeight: '500',
               fontSize: 19,
               lineHeight: 22,
+            },
+            headerTitleContainerStyle: {
+              left: 0,
             },
           }}
         />

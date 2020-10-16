@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   ribbonText: {
     fontWeight: '500',
-    fontSize: 14,
-    lineHeight: 16,
+    fontSize: 12,
+    lineHeight: 14,
     textTransform: 'capitalize',
     color: COLORS.WHITE,
   },
@@ -120,19 +120,21 @@ const styles = StyleSheet.create({
     height: 110,
     marginRight: 11,
     flex: 0,
+    borderRadius: 3,
   },
   info: {
     flex: 1,
+    paddingVertical: 2,
   },
   title: {
-    marginTop: 7,
+    marginTop: 5,
     marginBottom: 4,
     color: COLORS.BLACK,
-    fontWeight: 'bold',
+    fontWeight: Platform.OS === 'ios' ? '900' : 'bold',
     fontSize: 16,
   },
   price: {
-    fontWeight: 'bold',
+    fontWeight: Platform.OS === 'ios' ? '900' : 'bold',
     fontSize: 14,
     lineHeight: 17,
     color: COLORS.FLAMINGO,
@@ -146,10 +148,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 15,
     marginBottom: 7,
+    color: COLORS.BLACK,
   },
   description: {
     fontWeight: '300',
     fontSize: 12,
     lineHeight: 18,
+    color: COLORS.BLACK,
   },
 });

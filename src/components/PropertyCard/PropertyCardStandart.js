@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   city: {
+    marginTop: 2,
     fontWeight: '300',
     fontSize: 13,
     lineHeight: 15,
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   price: {
-    fontWeight: 'bold',
+    fontWeight: Platform.OS === 'ios' ? '900' : 'bold',
     fontSize: 16,
     lineHeight: 19,
     color: COLORS.FLAMINGO,
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     paddingVertical: 6,
     textAlign: 'center',
+    color: COLORS.BLACK,
   },
   infoDetailsText: {
     width: 50,
@@ -171,5 +173,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 13,
     paddingVertical: 4,
+    color: COLORS.BLACK,
   },
 });

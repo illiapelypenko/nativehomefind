@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     paddingHorizontal: 15,
+    paddingBottom: 100,
   },
   message: {
     textAlign: 'center',

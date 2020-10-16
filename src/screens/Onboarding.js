@@ -10,7 +10,6 @@ import {
   Animated,
   Easing,
 } from 'react-native';
-import { useSelector } from 'react-redux';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Logo from 'assets/icons/logo.svg';
 import { ROUTES, COLORS } from 'constants';
@@ -43,12 +42,6 @@ export const Onboarding = ({ navigation }) => {
 
   const [activeSlide, setActiveSlide] = useState(0);
   const [prevActiveSlide, setPrevActiveSlide] = useState(null);
-
-  const alreadyLaunched = useSelector(state => state.alreadyLaunched);
-
-  useEffect(() => {
-    if (alreadyLaunched) navigation.navigate(ROUTES.TAB_NAVIGATOR);
-  }, []);
 
   useEffect(() => {
     Animated.timing(activeSlideScaleX, {
@@ -136,6 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 3,
     alignItems: 'center',
+    paddingBottom: 100,
   },
   background: {
     ...StyleSheet.absoluteFill,
