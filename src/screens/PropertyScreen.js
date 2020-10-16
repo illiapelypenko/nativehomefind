@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
   statusContainer: {
     borderRadius: 3,
     backgroundColor: COLORS.FLAMINGO,
-    padding: 11,
-    paddingVertical: 11,
+    paddingVertical: 6,
     paddingHorizontal: 22,
     marginRight: 10,
   },
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
   mainInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 23,
+    marginTop: 20,
     marginBottom: 27,
     flexWrap: 'wrap',
   },
@@ -108,12 +107,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     lineHeight: 20,
     marginRight: 20,
+    color: COLORS.BLACK,
   },
   priceContainer: {
     backgroundColor: COLORS.FLAMINGO,
     borderRadius: 3,
-    paddingVertical: 11,
-    paddingHorizontal: 22,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
     marginTop: 20,
   },
   price: {
@@ -127,12 +127,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 18,
     marginBottom: 16,
+    color: COLORS.BLACK,
   },
   descriptionText: {
     fontWeight: '300',
     fontSize: 13,
     lineHeight: 19,
     marginBottom: 10,
+    color: COLORS.BLACK,
   },
   learnMore: {
     fontWeight: '500',

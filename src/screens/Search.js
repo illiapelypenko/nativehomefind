@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   tip: {
     fontSize: 18,
     lineHeight: 27,
+    color: COLORS.BLACK,
   },
   textInputContainer: {
     position: 'relative',
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.ZIRCON,
     borderRadius: 3,
     paddingHorizontal: 40,
-    paddingVertical: 19,
+    paddingVertical: 13,
     fontWeight: '500',
   },
 });

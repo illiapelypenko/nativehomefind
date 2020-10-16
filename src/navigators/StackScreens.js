@@ -50,7 +50,11 @@ export const FavoritesStack = () => (
       options={{
         title: 'Favorites',
         headerLeft: () => <View style={{ width: 60 }}></View>,
-        headerRight: () => <SizeButton />,
+        headerRight: () => (
+          <View style={{ padding: 20 }}>
+            <SizeButton />
+          </View>
+        ),
       }}
     />
   </Navigator>

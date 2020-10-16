@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Window from 'assets/icons/window.svg';
 import List from 'assets/icons/list.svg';
@@ -17,16 +17,8 @@ export const SizeButton = () => {
   };
 
   return (
-    <Pressable style={styles.container} onPress={handlePress}>
-      {size === 'standart' ? <Window /> : <List />}
+    <Pressable onPress={handlePress}>
+      {size === 'standart' ? <List /> : <Window />}
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    right: 0,
-    padding: 20,
-  },
-});

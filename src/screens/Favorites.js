@@ -1,32 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { PropertyList } from 'components';
 import { COLORS } from 'constants';
 import { setError } from 'store/actions';
 
-export const Favorites = ({ navigation }) => {
+export const Favorites = () => {
   const favorites = useSelector(state => state.favorites);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    navigation.addListener('focus', checkFavoritesLength);
-  }, []);
-
-  useEffect(() => {
-    checkFavoritesLength();
-  }, [favorites]);
-
-  const checkFavoritesLength = () => {
-    if (!favorites.length)
-      dispatch(
-        setError(
-          'You have not added any properties to your favourites.',
-          'Favorites'
-        )
-      );
-  };
+  useFocusEffect(
+    useCallback(() => {
+      if (!favorites.length)
+        dispatch(
+          setError(
+            'You have not added any properties to your favourites.',
+            'Favorites'
+          )
+        );
+    }, [favorites])
+  );
 
   return (
     <View style={styles.container}>
