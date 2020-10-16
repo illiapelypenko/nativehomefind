@@ -11,8 +11,9 @@ import {
   Easing,
 } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import Logo from 'assets/logo.svg';
+import Logo from 'assets/icons/logo.svg';
 import { ROUTES, COLORS } from 'constants';
+import { setItem } from 'utils/asyncStorage';
 
 const slides = [
   {
@@ -34,8 +35,8 @@ const slides = [
 ];
 
 export const Onboarding = ({ navigation }) => {
-  const activeSlideScaleX = new Animated.Value(1);
-  const inactiveSlideScaleX = new Animated.Value(2.5);
+  const activeSlideScaleX = new Animated.Value(0);
+  const inactiveSlideScaleX = new Animated.Value(12.5);
 
   const viewportWidth = useWindowDimensions().width;
 
@@ -44,23 +45,28 @@ export const Onboarding = ({ navigation }) => {
 
   useEffect(() => {
     Animated.timing(activeSlideScaleX, {
-      toValue: 2.5,
+      toValue: 12.5,
       duration: 200,
-      useNativeDriver: true,
+      useNativeDriver: false,
       easing: Easing.linear,
     }).start();
 
     Animated.timing(inactiveSlideScaleX, {
-      toValue: 1,
+      toValue: 0,
       duration: 200,
-      useNativeDriver: true,
+      useNativeDriver: false,
       easing: Easing.linear,
     }).start();
   }, [activeSlide]);
 
-  const handleOnSnapToItem = (index) => {
+  const handleOnSnapToItem = index => {
     setPrevActiveSlide(activeSlide);
     setActiveSlide(index);
+  };
+
+  const handlePress = () => {
+    setItem('alreadyLaunched', true);
+    navigation.navigate(ROUTES.TAB_NAVIGATOR);
   };
 
   const renderSlide = ({ item, index }) => (
@@ -69,10 +75,7 @@ export const Onboarding = ({ navigation }) => {
       <Logo style={styles.logo} />
       <Text style={styles.secondaryText}>{item.text}</Text>
       {index === slides.length - 1 && (
-        <Pressable
-          style={styles.button}
-          onPress={() => navigation.navigate(ROUTES.TAB_NAVIGATOR)}
-        >
+        <Pressable style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Start</Text>
         </Pressable>
       )}
@@ -82,18 +85,14 @@ export const Onboarding = ({ navigation }) => {
   const Dot = ({ index }) => (
     <Animated.View
       style={[
-        index === activeSlide ? styles.dot : styles.inactiveDot,
+        styles.dot,
         {
-          transform: [
-            {
-              scaleX:
-                index === activeSlide
-                  ? activeSlideScaleX
-                  : index === prevActiveSlide
-                  ? inactiveSlideScaleX
-                  : 1,
-            },
-          ],
+          paddingHorizontal:
+            index === activeSlide
+              ? activeSlideScaleX
+              : index === prevActiveSlide
+              ? inactiveSlideScaleX
+              : 0,
         },
       ]}
     ></Animated.View>
@@ -130,6 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     zIndex: 3,
     alignItems: 'center',
+    paddingBottom: 100,
   },
   background: {
     ...StyleSheet.absoluteFill,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   dot: {
     width: 10,
     height: 10,
-    borderRadius: 4,
+    borderRadius: 5,
     marginHorizontal: 10,
     backgroundColor: COLORS.WHITE,
   },

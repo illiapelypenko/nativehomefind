@@ -1,20 +1,21 @@
-export async function http(url, urlParams = "") {
-  const API_KEY = "dea4f094e6msh93997775fcdec42p1a12b5jsnde6526924555";
-  const X_RAPID_HOST = "realtor.p.rapidapi.com";
+import { API_KEY } from 'constants';
+
+export async function http(url, urlParams = '') {
+  const X_RAPID_HOST = 'realtor.p.rapidapi.com';
   const headers = {
-    "x-rapidapi-host": X_RAPID_HOST,
-    "x-rapidapi-key": API_KEY,
+    'x-rapidapi-host': X_RAPID_HOST,
+    'x-rapidapi-key': API_KEY,
   };
 
   function wait(time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
+    return new Promise(resolve => setTimeout(resolve, time));
   }
 
   try {
-    const timeout = async (time = 20000) => {
+    const timeout = async (time = 60000) => {
       await wait(time);
 
-      throw Error("Session timeout");
+      throw Error();
     };
 
     const query = () =>
@@ -25,16 +26,15 @@ export async function http(url, urlParams = "") {
     const response = await Promise.race([query(), timeout()]);
 
     if (!response.ok) {
-      throw new Error(response.statusText);
+      throw Error();
     }
 
     const data = await response.json();
 
     return data;
   } catch (e) {
-    console.log(e);
-    throw new Error(
-      "An error occurred while searching. Please check your network connection and try again."
+    throw Error(
+      'An error occurred while searching. Please check your network connection and try again.'
     );
   }
 }

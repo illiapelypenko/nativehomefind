@@ -1,21 +1,23 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Search, Favorites } from 'screens';
-import SearchLoop from 'assets/searchLoop.svg';
-import Star from 'assets/star.svg';
+import { SearchStack, FavoritesStack } from './StackScreens';
+import SearchLoop from 'assets/icons/searchLoop.svg';
+import StarBig from 'assets/icons/starBig.svg';
 import { COLORS, ROUTES } from 'constants';
 
 const Tab = createBottomTabNavigator();
 
+const { Navigator, Screen } = Tab;
+
 export const TabNavigator = () => {
   return (
-    <Tab.Navigator
+    <Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color }) =>
           route.name === ROUTES.SEARCH ? (
             <SearchLoop color={color} />
           ) : (
-            <Star color={color} />
+            <StarBig color={color} />
           ),
       })}
       tabBarOptions={{
@@ -24,8 +26,8 @@ export const TabNavigator = () => {
         showLabel: false,
       }}
     >
-      <Tab.Screen name={ROUTES.SEARCH} component={Search} />
-      <Tab.Screen name={ROUTES.FAVORITES} component={Favorites} />
-    </Tab.Navigator>
+      <Screen name={ROUTES.SEARCH} component={SearchStack} />
+      <Screen name={ROUTES.FAVORITES} component={FavoritesStack} />
+    </Navigator>
   );
 };

@@ -3,37 +3,58 @@ import {
   CLEAR_PROPERTIES,
   SET_CARD_SIZE,
   CLEAR_ERROR,
-  ADD_FAV,
-  REMOVE_FAV,
+  SET_ERROR,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE,
+  SET_FAVORITES,
 } from './actions';
+import { setItem } from 'utils/asyncStorage';
 
 const initialState = {
   properties: [],
-  error: '',
+  error: {
+    message: '',
+    type: '',
+  },
   cardSize: 'standart',
-  favs: [],
+  favorites: [],
 };
 
 function reducer(state = initialState, action) {
-  const { type, payload, error } = action;
+  const { type, payload } = action;
 
   switch (type) {
     case GET_PROPERTIES:
-      return { ...state, properties: payload, error };
+      return { ...state, properties: payload };
     case CLEAR_PROPERTIES:
       return { ...state, properties: [] };
     case SET_CARD_SIZE:
-      return { ...state, cardSize: action.payload };
+      return { ...state, cardSize: payload };
+    case SET_ERROR:
+      return { ...state, error: payload };
     case CLEAR_ERROR:
-      return { ...state, error: '' };
-    case ADD_FAV:
-      return { ...state, favs: [...state.favs, action.payload] };
-    case REMOVE_FAV:
-      const fav = action.payload;
-      const favs = state.favs.filter(
-        item => item.property_id !== fav.property_id
-      );
-      return { ...state, favs };
+      return { ...state, error: initialState.error };
+    case ADD_FAVORITE:
+      const favorites = [
+        ...state.favorites,
+        state.properties.find(property => property.property_id === payload),
+      ];
+      setItem('favorites', favorites);
+
+      return {
+        ...state,
+        favorites,
+      };
+    case SET_FAVORITES:
+      return {
+        ...state,
+        favorites: payload,
+      };
+    case REMOVE_FAVORITE:
+      const favs = state.favorites.filter(item => item.property_id !== payload);
+      setItem('favorites', favs);
+
+      return { ...state, favorites: favs };
     default:
       return state;
   }

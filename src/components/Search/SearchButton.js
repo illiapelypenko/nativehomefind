@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Pressable, Animated, Easing, StyleSheet, Text } from 'react-native';
-import LoadingIconSmall from 'assets/loadingIconSmall.svg';
+import LoadingIconSmall from 'assets/icons/loadingIconSmall.svg';
 import { COLORS } from 'constants';
 
 export const SearchButton = ({ isLoading, onPress }) => {
@@ -26,7 +26,7 @@ export const SearchButton = ({ isLoading, onPress }) => {
   });
 
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <Pressable style={styles.container} onPress={onPress}>
       {isLoading ? (
         <Animated.View style={{ transform: [{ rotate: rotation }] }}>
           <LoadingIconSmall />
@@ -39,7 +39,7 @@ export const SearchButton = ({ isLoading, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  button: {
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
     height: 56,
