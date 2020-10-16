@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     position: 'relative',
     overflow: 'hidden',
-    paddingHorizontal: 10,
-    paddingVertical: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
   },
   ribbon: {
     position: 'absolute',

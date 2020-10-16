@@ -81,6 +81,7 @@ export const RootNavigation = ({ alreadyLaunched }) => {
               fontSize: 18,
               lineHeight: 21,
             },
+            headerTitleAlign: 'left',
           }}
         />
         <Screen
