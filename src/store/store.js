@@ -1,20 +1,19 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducer';
+import rootSaga from './sagas';
 
-const middlewares = [thunk];
+const sagaMiddleware = createSagaMiddleware();
 
-// if (__DEV__) {
-//   const createDebugger = require('redux-flipper').default;
-//   middlewares.push(createDebugger());
-// }
-
-// const store = createStore(reducer, applyMiddleware(...middlewares));
+const middlewares = [thunk, sagaMiddleware];
 
 const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(...middlewares))
 );
+
+sagaMiddleware.run(rootSaga);
 
 export default store;

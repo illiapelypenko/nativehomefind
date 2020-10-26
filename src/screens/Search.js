@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { getProperties } from 'store/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import { COLORS, ROUTES } from 'constants';
 import { SearchButton } from 'components/Search/SearchButton';
 import { SearchInput } from 'components/Search/SearchInput';
 
 export const Search = ({ navigation }) => {
   const dispatch = useDispatch();
+
+  const requestStatus = useSelector(state => state.requestStatus);
 
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -24,18 +25,18 @@ export const Search = ({ navigation }) => {
     return navigation.removeListener('beforeRemove', preventGoingBag);
   }, [navigation]);
 
-  const handleSearch = async () => {
-    try {
-      if (!searchValue) return searchInput.current.focus();
-      setIsLoading(true);
-      setSearchValue('');
-      await dispatch(getProperties(searchValue));
-      setIsLoading(false);
-      navigation.navigate(ROUTES.SEARCH_RESULTS);
-    } catch {
-    } finally {
-      setIsLoading(false);
-    }
+  useEffect(() => {
+    requestStatus === 'PENDING' ? setIsLoading(true) : setIsLoading(false);
+    requestStatus === 'SUCCESS' && navigation.navigate(ROUTES.SEARCH_RESULTS);
+  }, [requestStatus]);
+
+  const handleSearch = () => {
+    if (!searchValue) return searchInput.current.focus();
+    setSearchValue('');
+    dispatch({
+      type: 'GET_PROPERTIES_ASYNC',
+      payload: searchValue,
+    });
   };
 
   return (

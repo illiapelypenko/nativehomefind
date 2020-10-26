@@ -18,12 +18,15 @@ const initialState = {
   },
   cardSize: 'standart',
   favorites: [],
+  requestStatus: '',
 };
 
 function reducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+    case 'SET_REQUEST':
+      return { ...state, requestStatus: payload };
     case GET_PROPERTIES:
       return { ...state, properties: payload };
     case CLEAR_PROPERTIES:
